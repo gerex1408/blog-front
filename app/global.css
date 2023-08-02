@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    body{
+        @apply bg-neutral;
+        @apply text-black;
+    }
+    [data-theme='dark'] body {
+        @apply bg-dark;
+        @apply text-neutral;
+      }
+
+    p{
+        @apply text-dark
+    }
+    [data-theme='dark'] p{
+        @apply text-neutral
+    }
+}

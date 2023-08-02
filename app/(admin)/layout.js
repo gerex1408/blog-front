@@ -1,7 +1,7 @@
-import './global.css';
+import '../global.css';
 
 import { Roboto_Flex } from 'next/font/google';
-import { Providers } from './services/providers';
+import { Providers } from '../services/providers';
 
 const roboto = Roboto_Flex({
   subsets: ['latin'],
