@@ -1,7 +1,5 @@
 'use client';
 
-import Image from 'next/image';
-import devLogLogo from '../../public/devslogLogo.png';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';

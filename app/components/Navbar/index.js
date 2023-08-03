@@ -3,8 +3,6 @@
 import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon, PlusIcon } from '@heroicons/react/24/outline';
-import Image from 'next/image';
-import devLogLogo from '../../public/devslogLogo.png';
 import ThemeToggler from '../ThemeToggler';
 import { useRouter } from 'next/navigation';
 import Logo from '../Logo';
