@@ -5,6 +5,7 @@ import devLogLogo from '../../public/devslogLogo.png';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Logo from '@/app/components/Logo';
 
 export default function Page() {
   const [showingPassword, setShowingPassword] = useState(false);
@@ -12,14 +13,9 @@ export default function Page() {
   return (
     <div className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
       <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
-        <Image
-          onClick={() => router.push('/')}
-          className='mx-auto cursor-pointer'
-          height={45}
-          src={devLogLogo}
-          alt='Devs Log logo'
-          priority
-        />
+        <div className='flex justify-center'>
+          <Logo onClick={() => router.push('/')} />
+        </div>
         <h2 className='mt-10 text-center text-2xl font-medium leading-9 tracking-tight'>
           Sign in to your account
         </h2>

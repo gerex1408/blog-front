@@ -7,6 +7,7 @@ import Image from 'next/image';
 import devLogLogo from '../../public/devslogLogo.png';
 import ThemeToggler from '../ThemeToggler';
 import { useRouter } from 'next/navigation';
+import Logo from '../Logo';
 
 export default function Navbar() {
   const router = useRouter();
@@ -41,14 +42,7 @@ export default function Navbar() {
               </div>
               <div className='flex flex-1 items-center justify-center sm:items-stretch sm:justify-start'>
                 <div className='flex flex-shrink-0 items-center'>
-                  <Image
-                    height={35}
-                    src={devLogLogo}
-                    alt='Devs Log logo'
-                    priority
-                    className='cursor-pointer'
-                    onClick={() => router.push('/')}
-                  />
+                  <Logo onClick={() => router.push('/')} />
                 </div>
                 <div className='hidden sm:ml-6 sm:block'>
                   <div className='flex space-x-4'>
