@@ -15,7 +15,7 @@ export default function Page() {
         <Image
           onClick={() => router.push('/')}
           className='mx-auto cursor-pointer'
-          height={35}
+          height={45}
           src={devLogLogo}
           alt='Devs Log logo'
           priority

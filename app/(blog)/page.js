@@ -11,7 +11,7 @@ export default function Page() {
           Hey there! Welcome to
         </h1>
         <h1 className='text-4xl/[3rem] font-bold tracking-tight sm:text-6xl/[5rem] animate-fade-left animate-once'>
-          <span className='bg-red text-white px-3'>DEVS</span>{' '}
+          <span className='bg-red text-white px-3 rounded-md'>DEVS</span>{' '}
           <span className='text-red'>LOG</span>
         </h1>
         <p className='mt-6 text-lg leading-8 animate-fade-right animate-once'>
