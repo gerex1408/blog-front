@@ -8,18 +8,25 @@ const DarkModeButton = () => {
   const { theme, setTheme } = useTheme();
 
   useEffect(() => {
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme) {
+      setTheme(storedTheme);
+    }
     setMounted(true);
   }, []);
+
+  const changeTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('theme', newTheme);
+    setTheme(newTheme);
+  };
 
   if (!mounted) {
     return null;
   }
 
   return (
-    <button
-      className='ms-3'
-      onClick={(e) => (theme === 'dark' ? setTheme('light') : setTheme('dark'))}
-    >
+    <button className='ms-3' onClick={changeTheme}>
       {theme === 'dark' ? (
         <MoonIcon className='block h-6 w-6 ml-2' aria-hidden='true' />
       ) : (
