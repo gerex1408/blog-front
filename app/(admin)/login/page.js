@@ -4,10 +4,40 @@ import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Logo from '@/app/components/Logo';
+import { useLoginMutation } from '@/app/services/api';
+import { useDispatch } from 'react-redux';
+import { actions } from './reducer';
 
 export default function Page() {
   const [showingPassword, setShowingPassword] = useState(false);
+  const [formValues, setFormValues] = useState({ email: '', password: '' });
+  const [login, { isLoading }] = useLoginMutation();
+  const dispatch = useDispatch();
   const router = useRouter();
+
+  const handleChangeEmail = (event) => {
+    const newFormValues = { ...formValues };
+    const newEmail = event.target.value;
+    newFormValues.email = newEmail;
+    setFormValues(newFormValues);
+  };
+
+  const handleChangePassword = (event) => {
+    const newFormValues = { ...formValues };
+    const newPassword = event.target.value;
+    newFormValues.password = newPassword;
+    setFormValues(newFormValues);
+  };
+
+  const onLoginFormSubmit = async () => {
+    try {
+      const { data } = await login(formValues);
+      dispatch(actions.setAuthState(data));
+    } catch (e) {
+      console.warn(e);
+    }
+  };
+
   return (
     <div className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
       <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
@@ -20,7 +50,7 @@ export default function Page() {
       </div>
 
       <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
-        <form className='space-y-6' action='#' method='POST'>
+        <div className='space-y-6'>
           <div>
             <label
               htmlFor='email'
@@ -34,6 +64,8 @@ export default function Page() {
                 name='email'
                 type='email'
                 autoComplete='email'
+                value={formValues.email || ''}
+                onChange={handleChangeEmail}
                 required
                 className='block w-full rounded-md border-0 py-1.5 px-2 shadow-sm ring-1 ring-inset ring-beige focus:ring-2 focus:ring-inset focus:ring-skin focus:outline-none sm:text-sm sm:leading-6'
               />
@@ -69,6 +101,8 @@ export default function Page() {
                 type={showingPassword ? 'text' : 'password'}
                 autoComplete='current-password'
                 required
+                value={formValues.password || ''}
+                onChange={handleChangePassword}
                 className='block w-full rounded-md border-0 py-1.5 px-2 shadow-sm ring-1 ring-inset ring-beige focus:ring-2 focus:ring-inset focus:ring-skin focus:outline-none sm:text-sm sm:leading-6'
               />
             </div>
@@ -76,13 +110,13 @@ export default function Page() {
 
           <div>
             <button
-              type='submit'
+              onClick={onLoginFormSubmit}
               className='flex w-full justify-center rounded-md bg-red px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red25 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
             >
               Sign in
             </button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );
