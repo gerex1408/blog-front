@@ -39,7 +39,15 @@ export default function Page() {
           dispatch(actions.setAuthState(data));
           router.push('/');
         })
-        .catch((e) => setErrorMessage(e?.data?.detail));
+        .catch((e) => {
+          setErrorMessage(e?.data?.detail[0]?.msg || e?.data?.detail);
+        });
+    }
+  };
+
+  const handleEnter = (e) => {
+    if (e.key === 'Enter') {
+      onLoginFormSubmit();
     }
   };
 
@@ -108,7 +116,7 @@ export default function Page() {
                 required
                 value={formValues.password || ''}
                 onChange={handleChangePassword}
-                onKeyDown={onLoginFormSubmit}
+                onKeyDown={handleEnter}
                 className='block w-full rounded-md border-0 py-1.5 px-2 shadow-sm ring-1 ring-inset ring-beige focus:ring-2 focus:ring-inset focus:ring-skin focus:outline-none sm:text-sm sm:leading-6'
               />
             </div>
