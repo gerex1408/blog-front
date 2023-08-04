@@ -18,6 +18,13 @@
     [data-theme='dark'] p, [data-theme='dark'] footer span,[data-theme='dark'] footer li {
         @apply text-neutral;
     }
+    input{
+        @apply bg-white ring-1 ring-inset ring-beige sm:text-sm sm:leading-6 rounded-md border-0 py-1.5 px-2 focus:ring-2 focus:ring-inset focus:ring-beige focus:outline-none;
+    }
+    [data-theme='dark'] input{
+        @apply bg-dark ;
+    }
+
 
 }
 
