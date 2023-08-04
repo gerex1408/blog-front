@@ -13,9 +13,22 @@
       }
 
     p, footer span, footer li{
-        @apply text-dark
+        @apply text-dark;
     }
     [data-theme='dark'] p, [data-theme='dark'] footer span,[data-theme='dark'] footer li {
-        @apply text-neutral
+        @apply text-neutral;
+    }
+
+}
+
+@layer components{
+    #toast{
+        @apply bg-white text-dark;
+    }
+    [data-theme='dark'] #toast{
+        @apply bg-[#3B3B3B] text-beige;
+    }
+    [data-theme='dark'] #toast #close-button{
+        @apply hover:text-beige;
     }
 }

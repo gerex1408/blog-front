@@ -8,9 +8,14 @@ const authSlice = createSlice({
   reducers: {
     setAuthState(state, action) {
       state.authState = action.payload;
+      const { access_token, refresh_token } = action.payload;
+      localStorage.setItem('access_token', access_token);
+      localStorage.setItem('refresh_token', refresh_token);
     },
     resetAuthState(state) {
       state.authState = null;
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
     },
   },
 });
