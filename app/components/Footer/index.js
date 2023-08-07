@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer className='absolute bottom-0 w-full shadow-[0_3px_10px_rgb(0,0,0,0.2)]'>
+    <footer className='w-full shadow-[0_3px_10px_rgb(0,0,0,0.2)]'>
       <div className=' mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between'>
         <span className='text-sm sm:text-center'>
           © 2023{' '}

@@ -156,13 +156,13 @@ export default function Page() {
           </div>
         </div>
       </div>
-      {isError && errorMessage && (
-        <Toast
-          type='error'
-          text={errorMessage}
-          onClose={() => setErrorMessage('')}
-        />
-      )}
+      <Toast
+        show={isError && errorMessage}
+        type='error'
+        text={errorMessage}
+        duration={3000}
+        onClose={() => setErrorMessage('')}
+      />
     </div>
   );
 }

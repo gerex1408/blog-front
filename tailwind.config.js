@@ -20,6 +20,8 @@ module.exports = {
       dark: '#554d56',
       red25: '#E98074',
       red: '#E85A4F',
+      green: '#0CAA8B',
+      green25: '#8DD4C3',
     },
     extend: {},
   },

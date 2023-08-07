@@ -4,22 +4,27 @@ import { Fragment, useEffect } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon, PlusIcon } from '@heroicons/react/24/outline';
 import ThemeToggler from '../ThemeToggler';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import Logo from '../Logo';
 import { useSelector, useDispatch } from 'react-redux';
-import { actions } from '../../(admin)/login/reducer';
+import { actions as authActions } from '../../(admin)/login/reducer';
+import Link from 'next/link';
+import Toast from '../Toast';
+import { actions as appActions } from '@/app/reducer';
 
 export default function Navbar() {
   const authState = useSelector((state) => state.auth.authState);
+  const showToast = useSelector((state) => state.app.showToast);
   const dispatch = useDispatch();
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     const storedAccessToken = localStorage.getItem('access_token');
     const storedRefreshToken = localStorage.getItem('refresh_token');
     if (storedAccessToken) {
       dispatch(
-        actions.setAuthState({
+        authActions.setAuthState({
           access_token: storedAccessToken,
           refresh_token: storedRefreshToken,
         })
@@ -27,12 +32,22 @@ export default function Navbar() {
     }
   }, []);
 
+  const logout = () => {
+    dispatch(authActions.resetAuthState());
+    dispatch(
+      appActions.showToast({ text: 'Sign out successfully', type: 'success' })
+    );
+  };
+
   const navigation = [
-    { name: 'Posts', href: '#', current: true },
-    { name: 'Authors', href: '#', current: false },
+    { name: 'Posts', href: '/', current: pathname === '/' },
+    { name: 'Authors', href: '/authors', current: pathname === '/authors' },
   ];
 
-  const userMenuItems = [{ name: 'Your profile' }, { name: 'Sign out' }];
+  const userMenuItems = [
+    { name: 'Your profile', action: {} },
+    { name: 'Sign out', action: logout },
+  ];
 
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
@@ -63,7 +78,7 @@ export default function Navbar() {
                 <div className='hidden sm:ml-6 sm:block'>
                   <div className='flex space-x-4'>
                     {navigation.map((item) => (
-                      <a
+                      <Link
                         key={item.name}
                         href={item.href}
                         className={classNames(
@@ -75,7 +90,7 @@ export default function Navbar() {
                         aria-current={item.current ? 'page' : undefined}
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -119,10 +134,10 @@ export default function Navbar() {
                             <Menu.Item key={item.name}>
                               {({ active }) => (
                                 <a
-                                  href='#'
+                                  onClick={item.action}
                                   className={classNames(
                                     active && 'bg-red25/10',
-                                    'text-black block px-4 py-2 text-sm'
+                                    'text-black block px-4 py-2 text-sm cursor-pointer'
                                   )}
                                 >
                                   {item.name}
@@ -173,6 +188,13 @@ export default function Navbar() {
               ))}
             </div>
           </Disclosure.Panel>
+          <Toast
+            show={!!showToast}
+            type={showToast?.type}
+            text={showToast?.text}
+            duration={showToast?.duration}
+            onClose={() => dispatch(appActions.hideToast())}
+          />
         </>
       )}
     </Disclosure>
