@@ -57,7 +57,10 @@ export const api = createApi({
         body: credentials,
       }),
     }),
+    me: builder.query({
+      query: () => '/users/me/',
+    }),
   }),
 });
 
-export const { useLoginMutation } = api;
+export const { useLoginMutation, useMeQuery } = api;
